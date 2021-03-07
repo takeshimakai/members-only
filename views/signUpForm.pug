@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  h1= title
+
+  form(action="" method='POST')
+    label(for='first-name') First name: 
+    input#first-name.text-input(
+      type='text'
+      name='firstName'
+      value=(user === undefined ? '' : user.firstName)
+      required)
+    label(for='last-name') Last name: 
+    input#last-name.text-input(
+      type='text'
+      name='lastName'
+      value=(user === undefined ? '' : user.lastName)
+      required)
+    label(for='email') Email: 
+    input#email.text-input(
+      type='email'
+      name='email'
+      value=(user === undefined ? '' : user.email)
+      required)
+    label(for='create-password') Create password: 
+    input#create-password.text-input(type='password' name='createPassword' required)
+    label(for='confirm-password') Confirm password: 
+    input#confirm-password.text-input(type='password' name='confirmPassword' required)
+    div#checkbox-container
+      label(for='is-admin') Admin status: 
+      input#is-admin(type="checkbox" name='isAdmin')
+    button(type='submit') Submit
+  
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

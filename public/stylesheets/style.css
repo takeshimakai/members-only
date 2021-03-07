@@ -6,3 +6,24 @@ body {
 a {
   color: #00B7FF;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-input {
+  width: 400px;
+}
+
+#is-admin {
+  margin: 0;
+}
+
+#checkbox-container, .text-input {
+  margin-bottom: 15px;
+}
+
+button {
+  width: 100px;
+}
