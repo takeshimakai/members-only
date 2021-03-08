@@ -14,4 +14,7 @@ router.get('/sign-up', userController.createUserGet);
 // POST sign up form
 router.post('/sign-up', userController.createUserPost);
 
+// GET log in form
+router.get('/log-in', userController.logInGet);
+
 module.exports = router;

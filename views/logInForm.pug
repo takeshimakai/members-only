@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+
+  form(action="" method='POST')
+    label(for="email") Email: 
+    input#email.text-input(type="email" name='email' required)
+    label(for="password") Password: 
+    input#password.text-input(type="password" name='password' required)
+    button(type='submit') Log In
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

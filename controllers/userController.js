@@ -1,8 +1,9 @@
 const User = require('../models/user');
 
 const { body, validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
 
-// Display sign up form
+// GET sign up form
 exports.createUserGet = (req, res, next) => {
   res.render('signUpForm', { title: 'Sign Up' });
 };
@@ -42,26 +43,34 @@ exports.createUserPost = [
   .withMessage('Password confirmation must match the password'),
 
   (req, res, next) => {
-    console.log(req.body)
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.render('signUpForm', { title: 'Sign Up', user: req.body, errors: errors.array() });
     }
 
-    const user = new User({
-      name: {
-        first: req.body.firstName,
-        last: req.body.lastName
-      },
-      email: req.body.email,
-      password: req.body.createPassword,
-      isAdmin: req.body.isAdmin
-    })
-
-    user.save((err) => {
+    bcrypt.hash(req.body.createPassword, 10, (err, hashedPw) => {
       if (err) return next(err);
-      res.redirect('/');
+
+      const user = new User({
+        name: {
+          first: req.body.firstName,
+          last: req.body.lastName
+        },
+        email: req.body.email,
+        password: hashedPw,
+        isAdmin: req.body.isAdmin === undefined ? false : true
+      })
+  
+      user.save((err) => {
+        if (err) return next(err);
+        res.redirect('/');
+      })
     })
   }
-]
+];
+
+// GET log in form
+exports.logInGet = (req, res, next) => {
+  res.render('logInForm', { title: 'Log In' });
+};
