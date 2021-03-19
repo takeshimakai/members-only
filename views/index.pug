@@ -3,13 +3,14 @@ extends layout
 block content
   h1= title
 
-  if user
-    p= user
+  if currentUser
+    p Welcome back #{currentUser.name.first}!
+
+    a(href='/logout') Log Out
+
   else
-    p Cheese
+    p
+      a(href="/login") Log In
 
-  p
-    a(href="/login") Log In
-
-  p
-    a(href="/signup") Sign Up
+    p
+      a(href="/signup") Sign Up

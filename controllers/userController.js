@@ -50,22 +50,30 @@ exports.createUserPost = [
       return res.render('signUpForm', { title: 'Sign Up', user: req.body, errors: errors.array() });
     }
 
-    bcrypt.hash(req.body.createPassword, 10, (err, hashedPw) => {
+    User.findOne({ email: req.body.email }, (err, user) => {
       if (err) return next(err);
 
-      const user = new User({
-        name: {
-          first: req.body.firstName,
-          last: req.body.lastName
-        },
-        email: req.body.email,
-        password: hashedPw,
-        isAdmin: !req.body.isAdmin ? false : true
-      })
-  
-      user.save((err) => {
+      if (user) {
+        return res.render('signUpForm', { title: 'Sign Up', user: req.body, errors: {error: {msg: `An account already exists with ${req.body.email}`}} });
+      }
+
+      bcrypt.hash(req.body.createPassword, 10, (err, hashedPw) => {
         if (err) return next(err);
-        res.redirect('/');
+  
+        const user = new User({
+          name: {
+            first: req.body.firstName,
+            last: req.body.lastName
+          },
+          email: req.body.email,
+          password: hashedPw,
+          isAdmin: !req.body.isAdmin ? false : true
+        })
+    
+        user.save((err) => {
+          if (err) return next(err);
+          res.redirect('/');
+        })
       })
     })
   }
@@ -76,10 +84,16 @@ exports.logInGet = (req, res, next) => {
   res.render('logInForm', { title: 'Log In' });
 };
 
-//POST log in form
+// POST log in form
 exports.logInPost = (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login'
   })(req, res, next);
+};
+
+// Logout
+exports.logOut = (req, res) => {
+  req.logout();
+  res.redirect('/');
 };
