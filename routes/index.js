@@ -9,12 +9,15 @@ router.get('/', function(req, res, next) {
 });
 
 // GET sign up form
-router.get('/sign-up', userController.createUserGet);
+router.get('/signup', userController.createUserGet);
 
 // POST sign up form
-router.post('/sign-up', userController.createUserPost);
+router.post('/signup', userController.createUserPost);
 
 // GET log in form
-router.get('/log-in', userController.logInGet);
+router.get('/login', userController.logInGet);
+
+// POST log in form
+router.post('/login', userController.logInPost);
 
 module.exports = router;

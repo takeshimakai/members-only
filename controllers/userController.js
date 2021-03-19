@@ -1,7 +1,8 @@
 const User = require('../models/user');
 
 const { body, validationResult } = require('express-validator');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
+const passport = require('passport');
 
 // GET sign up form
 exports.createUserGet = (req, res, next) => {
@@ -59,7 +60,7 @@ exports.createUserPost = [
         },
         email: req.body.email,
         password: hashedPw,
-        isAdmin: req.body.isAdmin === undefined ? false : true
+        isAdmin: !req.body.isAdmin ? false : true
       })
   
       user.save((err) => {
@@ -73,4 +74,12 @@ exports.createUserPost = [
 // GET log in form
 exports.logInGet = (req, res, next) => {
   res.render('logInForm', { title: 'Log In' });
+};
+
+//POST log in form
+exports.logInPost = (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/'
+  })(req, res, next);
 };
