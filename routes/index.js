@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const userController = require('../controllers/userController');
+const postController = require('../controllers/postController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -22,5 +23,11 @@ router.post('/login', userController.logInPost);
 
 // Logout
 router.get('/logout', userController.logOut);
+
+// GET new post form
+router.get('/new-post', postController.createNewGet);
+
+// POST new post form
+router.post('/new-post', postController.createNewPost);
 
 module.exports = router;

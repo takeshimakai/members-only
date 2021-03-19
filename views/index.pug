@@ -5,12 +5,4 @@ block content
 
   if currentUser
     p Welcome back #{currentUser.name.first}!
-
-    a(href='/logout') Log Out
-
-  else
-    p
-      a(href="/login") Log In
-
-    p
-      a(href="/signup") Sign Up
+    a(href="/new-post") Create a new post

@@ -27,3 +27,7 @@ form {
 button {
   width: 100px;
 }
+
+#nav > * {
+  margin-right: 15px;
+}
