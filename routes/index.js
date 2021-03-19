@@ -5,7 +5,7 @@ const userController = require('../controllers/userController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Members Only' });
+  res.render('index', { title: 'Members Only', user: req.user });
 });
 
 // GET sign up form
