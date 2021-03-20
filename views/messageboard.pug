@@ -1,0 +1,8 @@
+#posts
+  each post in posts
+    .post
+      h3 #{post.title}
+      p #{post.message}
+      if currentUser
+        p Posted by: #{post.author.name.first} #{post.author.name.last}
+        p #{post.timestamp}

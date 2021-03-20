@@ -4,5 +4,7 @@ block content
   h1= title
 
   if currentUser
-    p Welcome back #{currentUser.name.first}!
+    h3 Welcome back #{currentUser.name.first}!
     a(href="/new-post") Create a new post
+
+  include messageboard.pug

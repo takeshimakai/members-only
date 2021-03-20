@@ -2,6 +2,16 @@ const Post = require('../models/post');
 
 const { body, validationResult } = require('express-validator');
 
+exports.getMessages = (req, res, next) => {
+  Post
+  .find()
+  .populate('author')
+  .exec((err, posts) => {
+    if (err) return next(err);
+    res.render('index', { title: 'Members Only', posts });
+  });
+};
+
 exports.createNewGet = (req, res, next) => {
   res.render('messageForm', { title: 'New Post'});
 };

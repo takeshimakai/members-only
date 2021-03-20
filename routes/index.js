@@ -5,9 +5,7 @@ const userController = require('../controllers/userController');
 const postController = require('../controllers/postController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Members Only' });
-});
+router.get('/', postController.getMessages);
 
 // GET sign up form
 router.get('/signup', userController.createUserGet);
