@@ -43,3 +43,10 @@ exports.createNewPost = [
     })
   }
 ];
+
+exports.deletePost = (req, res, next) => {
+  Post.findByIdAndDelete(req.body.postId, (err) => {
+    if (err) return next(err);
+    res.redirect('/');
+  })
+}

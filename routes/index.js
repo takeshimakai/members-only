@@ -28,4 +28,7 @@ router.get('/new-post', postController.createNewGet);
 // POST new post form
 router.post('/new-post', postController.createNewPost);
 
+// Delete post
+router.post('/delete', postController.deletePost);
+
 module.exports = router;

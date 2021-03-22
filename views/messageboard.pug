@@ -5,3 +5,8 @@
       p #{post.message}
       if currentUser
         p Posted by: #{post.author.name.first} #{post.author.name.last} on #{post.timestampFormatted}
+        
+        if currentUser.isAdmin
+          form(action="/delete" method='POST')
+            input(type="hidden" name='postId' value=post._id required)
+            button Delete Post
